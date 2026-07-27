@@ -11,15 +11,15 @@ jobs:
     runs-on: windows-latest
     steps:
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v6
         with:
-          go-version: 1.19
+          go-version: 1.26
       
       - name: Run golangci-lint
-        uses: golangci/golangci-lint-action@v3
+        uses: golangci/golangci-lint-action@ba0d7d2ec06a0ea1cb5fa41b2e4a3ab91d21278a # v9.3.0
         with:
           skip-pkg-cache: true
       
@@ -30,4 +30,6 @@ jobs:
         run: golangci-lint run
       
       - name: govulncheck
-        run: go install golang.org/x/vuln/cmd/govulncheck@latest; govulncheck ./...
+        run: |
+          go install golang.org/x/vuln/cmd/govulncheck@19b0bb6a272792b9afa8a6983c3e9b9a1816947f # v1.6.0
+          govulncheck ./...
